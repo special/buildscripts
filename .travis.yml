@@ -3,6 +3,9 @@ language: cpp
 install: ./linux-static/build-deps.sh
 script: ./linux-static/build.sh
 
+git:
+    submodules: false
+
 addons:
     apt:
         packages:
