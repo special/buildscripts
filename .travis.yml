@@ -1,0 +1,18 @@
+language: cpp
+
+install: ./linux-static/build-deps.sh
+script: ./linux-static/build.sh
+
+addons:
+    apt:
+        packages:
+            - "^libxcb.*"
+            - libx11-xcb-dev
+            - libglu1-mesa-dev
+            - libxrender-dev
+            - libfontconfig1-dev
+            - libglu1-mesa-dev
+            - libxrender-dev
+            - xkb-data
+            - libasound2-dev
+
