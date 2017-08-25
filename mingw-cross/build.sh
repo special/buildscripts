@@ -50,6 +50,9 @@ test -e Qt/imageformats && rm -r Qt/imageformats
 test -e Qt/playlistformats && rm -r Qt/playlistformats
 cd ..
 zip -r ${BUILD_OUTPUT}/ricochet-${RICOCHET_VERSION}-installer-build.zip installer
+cd installer
+wine "${ROOT_SRC}/../inno/app/ISCC.exe" installer.iss
+cp Output/Ricochet.exe ${BUILD_OUTPUT}/ricochet-${RICOCHET_VERSION}-win-install.exe
 
 echo "---------------------"
 ls -la ${BUILD_OUTPUT}/
