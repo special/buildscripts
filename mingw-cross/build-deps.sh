@@ -23,7 +23,11 @@ git submodule foreach git reset --hard
 cd qttools
 git apply --ignore-whitespace ${ROOT_SRC}/../mingw-cross/0001-windeployqt-Hack-to-use-objdump-for-PE-parsing.patch
 cd ..
-./configure -prefix "${ROOT_LIB}/qt5/" -release -opensource -confirm-license -no-dbus -no-qml-debug -no-glib -no-openssl -no-fontconfig -no-icu -qt-pcre -qt-zlib -qt-libpng -qt-libjpeg -nomake tools -nomake examples -xplatform win32-g++ -device-option "CROSS_COMPILE=/usr/bin/i686-w64-mingw32-"
+cd qtwinextras
+# Move forward to the patch for QTBUG-61740, will be fixed after 5.9.1
+git checkout fe63ea126822fae40db90a06ab3be47700e85ec4
+cd ..
+./configure -prefix "${ROOT_LIB}/qt5/" -release -opensource -confirm-license -no-dbus -no-qml-debug -no-glib -no-openssl -no-fontconfig -no-icu -qt-pcre -qt-zlib -qt-libpng -qt-libjpeg -opengl desktop -nomake tools -nomake examples -xplatform win32-g++ -device-option "CROSS_COMPILE=/usr/bin/i686-w64-mingw32-"
 make ${MAKEOPTS}
 make install
 cd ..

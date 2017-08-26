@@ -1,6 +1,6 @@
-From f27bd6b818ec50408bcf58947ef7d2967202ddc5 Mon Sep 17 00:00:00 2001
+From 269f12ca8fea98b8f008aa038c21c82080c43bb5 Mon Sep 17 00:00:00 2001
 From: John Brooks <john.brooks@dereferenced.net>
-Date: Tue, 1 Nov 2016 15:32:41 -0600
+Date: Sat, 26 Aug 2017 12:27:37 +0000
 Subject: [PATCH] windeployqt: Hack to use objdump for PE parsing
 
 Hackishly use objdump to parse imports in PE executables, allowing
@@ -19,10 +19,10 @@ This is not suitable to upstream, but smarter PE parsing should be.
  2 files changed, 48 insertions(+), 5 deletions(-)
 
 diff --git a/src/windeployqt/main.cpp b/src/windeployqt/main.cpp
-index 9b82628..31e6de3 100644
+index 67577c5f..e8a7323c 100644
 --- a/src/windeployqt/main.cpp
 +++ b/src/windeployqt/main.cpp
-@@ -1013,13 +1013,17 @@ static QStringList compilerRunTimeLibs(Platform platform, bool isDebug, unsigned
+@@ -1058,13 +1058,17 @@ static QStringList compilerRunTimeLibs(Platform platform, bool isDebug, unsigned
      QStringList result;
      switch (platform) {
      case WindowsMinGW: { // MinGW: Add runtime libraries
@@ -38,14 +38,14 @@ index 9b82628..31e6de3 100644
 +#else
 +        const QString binPath = QStringLiteral("/usr/i686-w64-mingw32/sys-root/mingw/bin/");
 +#endif
-         QDir dir(binPath);
          QStringList filters;
          const QString suffix = QLatin1Char('*') + sharedLibrarySuffix(platform);
+         const size_t count = sizeof(minGwRuntimes) / sizeof(minGwRuntimes[0]);
 diff --git a/src/windeployqt/utils.cpp b/src/windeployqt/utils.cpp
-index a29b38b..dcf9bb3 100644
+index 4824a588..f0c07888 100644
 --- a/src/windeployqt/utils.cpp
 +++ b/src/windeployqt/utils.cpp
-@@ -931,11 +931,50 @@ QString findD3dCompiler(Platform platform, const QString &qtBinDir, unsigned wor
+@@ -930,11 +930,50 @@ QString findD3dCompiler(Platform platform, const QString &qtBinDir, unsigned wor
  
  #else // Q_OS_WIN
  
@@ -101,5 +101,5 @@ index a29b38b..dcf9bb3 100644
  
  QString findD3dCompiler(Platform, const QString &, unsigned)
 -- 
-2.7.4
+2.11.0
 
