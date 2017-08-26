@@ -72,5 +72,17 @@ make ${MAKEOPTS}
 make install
 cd ..
 
+# Clean up the compile byproducts to reduce docker image size & speed up build
+cd qt5
+git submodule foreach git clean -dfx .
+git submodule foreach git reset --hard
+cd ..
+for N in openssl libevent tor protobuf; do
+	cd $N
+	git clean -dfx .
+	git reset --hard
+	cd ..
+done
+
 cd ..
 echo "build-deps: done"
