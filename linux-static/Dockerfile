@@ -1,4 +1,4 @@
-FROM debian:wheezy
+FROM debian:jessie
 
 RUN apt-get update
 RUN apt-get install -y git build-essential python curl vim unzip libtool
